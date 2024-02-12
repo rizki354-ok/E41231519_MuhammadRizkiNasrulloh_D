@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class Tugas3v2 {
     public static void main(String[] args) {
         String nama;
-        boolean kondisi = true;
         int total = 0, harga;
         Scanner scan = new Scanner(System.in);
         System.out.print("""
