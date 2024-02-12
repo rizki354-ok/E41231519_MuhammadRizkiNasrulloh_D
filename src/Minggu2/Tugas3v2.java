@@ -1,6 +1,6 @@
 package Minggu2;
 import java.util.Scanner;
-public class Tugas3 {
+public class Tugas3v2 {
     public static void main(String[] args) {
         String nama;
         boolean kondisi = true;
@@ -15,22 +15,21 @@ public class Tugas3 {
 -------------------------------------------------------------------------\n""");
         System.out.print("Masukkan nama pembeli: ");
         nama = scan.nextLine();
+        int hitung=0;
         System.out.print("\n");
         for (int i = 1; i > 0; i++) {
             System.out.print("Masukkan harga barang ke-" + i + "\t: ");
             harga = scan.nextInt();
-            if (i < 6) {
-                if (harga < 10000) {
-                    kondisi = false;
+                if (harga >= 10000) {
+                    ++hitung;
                 }
-            }
             if (harga == 0) {
                 break;
             }
             total += harga;
         }
         System.out.printf("Total harga pembelian atas nama %s adalah Rp %d\n\n", nama, total);
-        if (kondisi) {
+        if (hitung>=5) {
             System.out.println("Selamat....\nAnda mendapat hadiah 1 buah mug cantik\n");
         } else {
             System.out.println("                                                                         ");
