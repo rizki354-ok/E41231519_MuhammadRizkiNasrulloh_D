@@ -12,8 +12,8 @@ public class Acara11n12_Tugas2 {
         for(int i=0;i<deretAngka.length;i++){
             deretAngka[i]=rand.nextInt(100);
         }
-        for (int angka : deretAngka) {
-            System.out.printf("%3d ", angka);
+        for(int angka:deretAngka){
+            System.out.print(angka+" ");
         }
         System.out.println("");
     }
