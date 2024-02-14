@@ -1,4 +1,5 @@
 package Minggu3;
+import java.util.Arrays;
 import java.util.Scanner;
 public class Acara9n10_Tugas1v2 {
     public static void main(String[] args) {
@@ -10,8 +11,11 @@ public class Acara9n10_Tugas1v2 {
             System.out.print("");
             angka[i]=scan.nextInt();
         }
+        Arrays.sort(angka);
         for(int i:angka){
-            System.out.print(i+" ");
+            if(i%2==0){
+                System.out.print(i+" ");
+            }
         }
 //        for(int i=0;i<=angka.length-1;i++){
 //            System.out.print(angka[i]+" ");
