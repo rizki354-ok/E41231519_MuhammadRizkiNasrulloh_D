@@ -10,7 +10,7 @@ public class Acara9n10_Tugas1 {
         batasAkhir=scan.nextInt();
         for(;batasAwal<batasAkhir+1;batasAwal++){
             if(batasAwal%2==0){
-                System.out.println(batasAwal);
+                System.out.print(batasAwal+" ");
             }
         }
     }
