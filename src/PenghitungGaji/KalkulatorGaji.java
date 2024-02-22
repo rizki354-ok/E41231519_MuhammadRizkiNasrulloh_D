@@ -35,7 +35,7 @@ class karyawan{
     double gaji;
     static int gaji(String role){
         switch (role) {
-        case "A":
+        case "programmer":
             return 5000000;
         case "desain grafis":
             return 4000000;
