@@ -1,16 +1,11 @@
 package Minggu4;
-
 import java.util.Arrays;
 public class BinarySearch {
     public static int binary(int[] arr, int target) {
         int low = 0;
-        int high = arr.length - 1;//mencari target kemudian mengembalikan indeks dari nilai target tersebut jika ditemukan dan
-                                  //-1 jika tidak ditemukan
-        
+        int high = arr.length - 1;
         while (low <= high) {
-            int center = (low + high) / 2; //terus berjalan selama nilai low tidak melebihi nilai high.
-            // Ini berarti bahwa selama masih ada bagian dari array yang belum diperiksa, algoritma akan terus mencari.
-            
+            int center = (low + high) / 2;
             if (arr[center] == target) {
                 return center; // elemen ditemukan
             } else if (arr[center] < target) {
@@ -21,22 +16,20 @@ public class BinarySearch {
         }
         return -1; // elemen tidak ditemukan
     }
-
     public static void main(String[] args) {
-        int[] arr = {2,5,7,4,9,12,17,14,16,13};
+        int[] arr = {12,17,14,16,13};
         Arrays.sort(arr);
+        for(int angka:arr){
+            System.out.print(angka+" ");
+        }
         int target = 17; // target
-        
         int result = binary(arr, target);
-        
         if (result != -1) {
             System.out.println("Elemen " + target + " ditemukan pada indeks: " + result);
         } else {
             System.out.println("Elemen tidak ditemukan dalam array.");
         }
-    }
-    
-}
+    }}
 //public class BinarySearch {
 //    public static void main(String[] args) {
 //        int[] exampleVariableOne={2, 9, 6, 7, 4, 5, 3, 0, 1};
