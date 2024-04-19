@@ -65,7 +65,6 @@ public class Supplier extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(935, 598));
         setMinimumSize(new java.awt.Dimension(935, 598));
-        setPreferredSize(new java.awt.Dimension(935, 598));
 
         jPanel1.setBackground(new java.awt.Color(2, 1, 101));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Supplier", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
