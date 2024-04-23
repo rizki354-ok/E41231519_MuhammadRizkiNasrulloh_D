@@ -5,17 +5,17 @@ import java.sql.Statement;
 public class koneksi {
     public static Connection con;
     public static Statement stm;
-    public static void main(String[] args) {
+    public static Statement konek() {
         try {
             String url="jdbc:mysql://localhost/penjualan";
             String user="root";
             String pass="";
             Class.forName("com.mysql.cj.jdbc.Driver");
             con=DriverManager.getConnection(url,user,pass);
-            stm=con.createStatement();
-            System.out.println("Koneksi Berhasil");
+            return stm=con.createStatement();
         } catch (Exception e) {
             System.out.println("Koneksi gagal "+e.getMessage());
+            return stm=null;
         }
     }
 }

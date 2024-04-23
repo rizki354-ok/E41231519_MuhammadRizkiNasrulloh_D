@@ -11,8 +11,8 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author rizki
@@ -22,12 +22,14 @@ public class Supplier extends javax.swing.JFrame {
     private Connection con;
     private Statement stm;
     private ResultSet RSsupplier;
-    private String sql, KodeSup, NamaPerus, NamaBrg, NoTlp, Alamat, km;
+    private String sql, KodeSup, NamaPerus, NamaBrg, NoTlp, Alamat;
+
     /**
      * Creates new form Supplier
      */
     public Supplier() {
         initComponents();
+        ShowData(null);
     }
 
     /**
@@ -40,20 +42,20 @@ public class Supplier extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        LabelNoTrs = new javax.swing.JLabel();
+        LabelKodeSup = new javax.swing.JLabel();
         TxtKodeSup = new javax.swing.JTextField();
-        ButtonSave = new javax.swing.JButton();
-        LabelNoTrs1 = new javax.swing.JLabel();
+        LabelNamaPer = new javax.swing.JLabel();
         TxtNamaPer = new javax.swing.JTextField();
-        LabelNoTrs2 = new javax.swing.JLabel();
+        LabelNamaBrg = new javax.swing.JLabel();
         TxtNamaBrg = new javax.swing.JTextField();
-        LabelNoTrs3 = new javax.swing.JLabel();
+        LabelNoTlp = new javax.swing.JLabel();
         TxtNoTlp = new javax.swing.JTextField();
-        LabelNoTrs4 = new javax.swing.JLabel();
+        LabelAlamat = new javax.swing.JLabel();
         TxtAlamat = new javax.swing.JTextField();
-        ButtonAdd1 = new javax.swing.JButton();
-        ButtonAdd2 = new javax.swing.JButton();
-        ButtonAdd3 = new javax.swing.JButton();
+        ButtonSave = new javax.swing.JButton();
+        ButtonEdit = new javax.swing.JButton();
+        ButtonClear = new javax.swing.JButton();
+        ButtonDelete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -71,14 +73,50 @@ public class Supplier extends javax.swing.JFrame {
         jPanel1.setMaximumSize(new java.awt.Dimension(935, 575));
         jPanel1.setMinimumSize(new java.awt.Dimension(935, 575));
 
-        LabelNoTrs.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        LabelNoTrs.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNoTrs.setText("Kode Supplier");
+        LabelKodeSup.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LabelKodeSup.setForeground(new java.awt.Color(255, 255, 255));
+        LabelKodeSup.setText("Kode Supplier");
 
         TxtKodeSup.setBackground(new java.awt.Color(255, 255, 255));
         TxtKodeSup.setForeground(new java.awt.Color(0, 0, 0));
         TxtKodeSup.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
         TxtKodeSup.setName(""); // NOI18N
+
+        LabelNamaPer.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LabelNamaPer.setForeground(new java.awt.Color(255, 255, 255));
+        LabelNamaPer.setText("Nama Perusahaan");
+
+        TxtNamaPer.setBackground(new java.awt.Color(255, 255, 255));
+        TxtNamaPer.setForeground(new java.awt.Color(0, 0, 0));
+        TxtNamaPer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        TxtNamaPer.setName(""); // NOI18N
+
+        LabelNamaBrg.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LabelNamaBrg.setForeground(new java.awt.Color(255, 255, 255));
+        LabelNamaBrg.setText("Barang Di Jual");
+
+        TxtNamaBrg.setBackground(new java.awt.Color(255, 255, 255));
+        TxtNamaBrg.setForeground(new java.awt.Color(0, 0, 0));
+        TxtNamaBrg.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        TxtNamaBrg.setName(""); // NOI18N
+
+        LabelNoTlp.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LabelNoTlp.setForeground(new java.awt.Color(255, 255, 255));
+        LabelNoTlp.setText("No Tlp");
+
+        TxtNoTlp.setBackground(new java.awt.Color(255, 255, 255));
+        TxtNoTlp.setForeground(new java.awt.Color(0, 0, 0));
+        TxtNoTlp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        TxtNoTlp.setName(""); // NOI18N
+
+        LabelAlamat.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        LabelAlamat.setForeground(new java.awt.Color(255, 255, 255));
+        LabelAlamat.setText("Alamat");
+
+        TxtAlamat.setBackground(new java.awt.Color(255, 255, 255));
+        TxtAlamat.setForeground(new java.awt.Color(0, 0, 0));
+        TxtAlamat.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
+        TxtAlamat.setName(""); // NOI18N
 
         ButtonSave.setBackground(new java.awt.Color(255, 255, 255));
         ButtonSave.setForeground(new java.awt.Color(0, 0, 0));
@@ -94,68 +132,47 @@ public class Supplier extends javax.swing.JFrame {
             }
         });
 
-        LabelNoTrs1.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        LabelNoTrs1.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNoTrs1.setText("Nama Perusahaan");
+        ButtonEdit.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonEdit.setForeground(new java.awt.Color(0, 0, 0));
+        ButtonEdit.setText("EDIT");
+        ButtonEdit.setBorder(null);
+        ButtonEdit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ButtonEdit.setMaximumSize(new java.awt.Dimension(65, 22));
+        ButtonEdit.setMinimumSize(new java.awt.Dimension(65, 22));
+        ButtonEdit.setPreferredSize(new java.awt.Dimension(65, 22));
+        ButtonEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonEditActionPerformed(evt);
+            }
+        });
 
-        TxtNamaPer.setBackground(new java.awt.Color(255, 255, 255));
-        TxtNamaPer.setForeground(new java.awt.Color(0, 0, 0));
-        TxtNamaPer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        TxtNamaPer.setName(""); // NOI18N
+        ButtonClear.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonClear.setForeground(new java.awt.Color(0, 0, 0));
+        ButtonClear.setText("CLEAR");
+        ButtonClear.setBorder(null);
+        ButtonClear.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ButtonClear.setMaximumSize(new java.awt.Dimension(65, 22));
+        ButtonClear.setMinimumSize(new java.awt.Dimension(65, 22));
+        ButtonClear.setPreferredSize(new java.awt.Dimension(65, 22));
+        ButtonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonClearActionPerformed(evt);
+            }
+        });
 
-        LabelNoTrs2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        LabelNoTrs2.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNoTrs2.setText("Barang Di Jual");
-
-        TxtNamaBrg.setBackground(new java.awt.Color(255, 255, 255));
-        TxtNamaBrg.setForeground(new java.awt.Color(0, 0, 0));
-        TxtNamaBrg.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        TxtNamaBrg.setName(""); // NOI18N
-
-        LabelNoTrs3.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        LabelNoTrs3.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNoTrs3.setText("No Tlp");
-
-        TxtNoTlp.setBackground(new java.awt.Color(255, 255, 255));
-        TxtNoTlp.setForeground(new java.awt.Color(0, 0, 0));
-        TxtNoTlp.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        TxtNoTlp.setName(""); // NOI18N
-
-        LabelNoTrs4.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        LabelNoTrs4.setForeground(new java.awt.Color(255, 255, 255));
-        LabelNoTrs4.setText("Alamat");
-
-        TxtAlamat.setBackground(new java.awt.Color(255, 255, 255));
-        TxtAlamat.setForeground(new java.awt.Color(0, 0, 0));
-        TxtAlamat.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 5));
-        TxtAlamat.setName(""); // NOI18N
-
-        ButtonAdd1.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonAdd1.setForeground(new java.awt.Color(0, 0, 0));
-        ButtonAdd1.setText("EDIT");
-        ButtonAdd1.setBorder(null);
-        ButtonAdd1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ButtonAdd1.setMaximumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd1.setMinimumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd1.setPreferredSize(new java.awt.Dimension(65, 22));
-
-        ButtonAdd2.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonAdd2.setForeground(new java.awt.Color(0, 0, 0));
-        ButtonAdd2.setText("CLEAR");
-        ButtonAdd2.setBorder(null);
-        ButtonAdd2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ButtonAdd2.setMaximumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd2.setMinimumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd2.setPreferredSize(new java.awt.Dimension(65, 22));
-
-        ButtonAdd3.setBackground(new java.awt.Color(255, 255, 255));
-        ButtonAdd3.setForeground(new java.awt.Color(0, 0, 0));
-        ButtonAdd3.setText("DELETE");
-        ButtonAdd3.setBorder(null);
-        ButtonAdd3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ButtonAdd3.setMaximumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd3.setMinimumSize(new java.awt.Dimension(65, 22));
-        ButtonAdd3.setPreferredSize(new java.awt.Dimension(65, 22));
+        ButtonDelete.setBackground(new java.awt.Color(255, 255, 255));
+        ButtonDelete.setForeground(new java.awt.Color(0, 0, 0));
+        ButtonDelete.setText("DELETE");
+        ButtonDelete.setBorder(null);
+        ButtonDelete.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ButtonDelete.setMaximumSize(new java.awt.Dimension(65, 22));
+        ButtonDelete.setMinimumSize(new java.awt.Dimension(65, 22));
+        ButtonDelete.setPreferredSize(new java.awt.Dimension(65, 22));
+        ButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonDeleteActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,6 +185,16 @@ public class Supplier extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable1KeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -178,23 +205,23 @@ public class Supplier extends javax.swing.JFrame {
                 .addContainerGap(81, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelNoTrs)
+                        .addComponent(LabelKodeSup)
                         .addGap(71, 71, 71)
                         .addComponent(TxtKodeSup, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelNoTrs2)
+                        .addComponent(LabelNamaBrg)
                         .addGap(68, 68, 68)
                         .addComponent(TxtNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(LabelNoTrs1)
+                        .addComponent(LabelNamaPer)
                         .addGap(45, 45, 45)
                         .addComponent(TxtNamaPer, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LabelNoTrs3)
-                            .addComponent(LabelNoTrs4))
+                            .addComponent(LabelNoTlp)
+                            .addComponent(LabelAlamat))
                         .addGap(110, 110, 110)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(TxtNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,11 +230,11 @@ public class Supplier extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(ButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(ButtonAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(82, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
@@ -220,28 +247,28 @@ public class Supplier extends javax.swing.JFrame {
                 .addGap(73, 73, 73)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TxtKodeSup, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelNoTrs)
+                    .addComponent(LabelKodeSup)
                     .addComponent(TxtNoTlp, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelNoTrs3))
+                    .addComponent(LabelNoTlp))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TxtNamaPer, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(LabelNoTrs4)
+                        .addComponent(LabelAlamat)
                         .addComponent(TxtAlamat, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LabelNoTrs1))
+                    .addComponent(LabelNamaPer))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TxtNamaBrg, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LabelNoTrs2)
+                    .addComponent(LabelNamaBrg)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ButtonAdd1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ButtonAdd2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(ButtonAdd3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ButtonEdit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonClear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(ButtonDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Home");
@@ -274,29 +301,93 @@ public class Supplier extends javax.swing.JFrame {
 
     private void ButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonSaveActionPerformed
         // TODO add your handling code here:
-        KodeSup=String.valueOf(TxtKodeSup.getText());
-        NamaPerus=String.valueOf(TxtNamaPer.getText());
-        NamaBrg=String.valueOf(TxtNamaBrg.getText());
-        NoTlp=String.valueOf(TxtNoTlp.getText());
-        Alamat=String.valueOf(TxtAlamat.getText());
+        KodeSup = String.valueOf(TxtKodeSup.getText());
+        NamaPerus = String.valueOf(TxtNamaPer.getText());
+        NamaBrg = String.valueOf(TxtNamaBrg.getText());
+        NoTlp = String.valueOf(TxtNoTlp.getText());
+        Alamat = String.valueOf(TxtAlamat.getText());
         try {
-            String url="jdbc:mysql://localhost/penjualan";
-            String user="root";
-            String pass="";
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con=DriverManager.getConnection(url,user,pass);
-            sql="INSERT INTO supplier (kd_suplier, perusahaan, nama_barang, no_hp, alamat)value"
-                    + "('"+KodeSup+"','"+NamaPerus+"','"+NamaBrg+"','"+NoTlp+"','"+Alamat+"')";
-            stm=con.createStatement();
+//            String url="jdbc:mysql://localhost/penjualan";
+//            String user="root";
+//            String pass="";
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            con=DriverManager.getConnection(url,user,pass);
+            sql = "INSERT INTO supplier (kd_suplier, perusahaan, nama_barang, no_hp, alamat)value"
+                    + "('" + KodeSup + "','" + NamaPerus + "','" + NamaBrg + "','" + NoTlp + "','" + Alamat + "')";
+            stm = koneksi.konek();
             stm.execute(sql);
             Clear();
             ShowData(null);
             JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error \n"+e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error \n" + e.getMessage());
         }
     }//GEN-LAST:event_ButtonSaveActionPerformed
-    private void Clear(){
+
+    private void ButtonEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonEditActionPerformed
+        // TODO add your handling code here:
+        KodeSup = String.valueOf(TxtKodeSup.getText());
+        NamaPerus = String.valueOf(TxtNamaPer.getText());
+        NamaBrg = String.valueOf(TxtNamaBrg.getText());
+        NoTlp = String.valueOf(TxtNoTlp.getText());
+        Alamat = String.valueOf(TxtAlamat.getText());
+        try {
+            sql = "update supplier set perusahaan='" + NamaPerus + "', nama_barang='" + NamaBrg + "', no_hp='" + NoTlp + "', alamat='" + Alamat + "'where kd_suplier='" + KodeSup + "'";
+            stm = koneksi.konek();
+            stm.execute(sql);
+            Clear();
+            ShowData(null);
+            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Di Perbarui");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error \n" + e.getMessage());
+        }
+    }//GEN-LAST:event_ButtonEditActionPerformed
+
+    private void ButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonDeleteActionPerformed
+        // TODO add your handling code here:
+        try {
+            sql = "delete from supplier where kd_suplier='" + String.valueOf(TxtKodeSup.getText()) + "'";
+            stm = koneksi.konek();
+            stm.execute(sql);
+            Clear();
+            ShowData(null);
+            JOptionPane.showMessageDialog(rootPane, "Data Berhasil Di Hapus");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Error \n"+e.getMessage());
+        }
+
+    }//GEN-LAST:event_ButtonDeleteActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int baris=jTable1.rowAtPoint(evt.getPoint());
+        KodeSup=jTable1.getValueAt(baris, 1).toString();
+        NamaPerus=jTable1.getValueAt(baris, 2).toString();
+        NamaBrg=jTable1.getValueAt(baris, 3).toString();
+        NoTlp=jTable1.getValueAt(baris, 4).toString();
+        Alamat=jTable1.getValueAt(baris, 5).toString();
+        TxtKodeSup.setText(KodeSup);
+        TxtKodeSup.disable();
+        if(jTable1.getValueAt(baris, 2)==null)TxtNamaPer.setText("");
+        else TxtNamaPer.setText(NamaPerus);
+        if(jTable1.getValueAt(baris, 3)==null)TxtNamaBrg.setText("");
+        else TxtNamaBrg.setText(NamaBrg);
+        if(jTable1.getValueAt(baris, 4)==null)TxtNoTlp.setText("");
+        else TxtNoTlp.setText(NoTlp);
+        if(jTable1.getValueAt(baris, 5)==null)TxtAlamat.setText("");
+        else TxtAlamat.setText(Alamat);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jTable1KeyPressed
+
+    private void ButtonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonClearActionPerformed
+        // TODO add your handling code here:
+        Clear();
+    }//GEN-LAST:event_ButtonClearActionPerformed
+    private void Clear() {
         TxtKodeSup.setText("");
         TxtNamaPer.setText("");
         TxtNamaBrg.setText("");
@@ -305,8 +396,9 @@ public class Supplier extends javax.swing.JFrame {
         TxtKodeSup.enable(true);
         ShowData(null);
     }
-    private void ShowData(String km){
-        DefaultTableModel tbl=new DefaultTableModel();
+
+    private void ShowData(String km) {
+        DefaultTableModel tbl = new DefaultTableModel();
         tbl.addColumn("No");
         tbl.addColumn("Kode Supplier");
         tbl.addColumn("Nama Perusahaan");
@@ -314,29 +406,31 @@ public class Supplier extends javax.swing.JFrame {
         tbl.addColumn("No Telp");
         tbl.addColumn("Alamat");
         try {
-            int i=1;
-            stm=con.createStatement();
-            if(km!=null){
-                sql="INSERT * FROM supplier"
-                        + "where kd_supplier like '%"+km+"%'";
-            }else{
-                sql="SELECT * FROM supplier";
+            int i = 1;
+            stm = koneksi.konek();
+            if (km != null) {
+                sql = "INSERT * FROM supplier"
+                        + "where kd_supplier like '%" + km + "%'";
+            } else {
+                sql = "SELECT * FROM supplier";
             }
-            RSsupplier=stm.executeQuery(sql);
-            while(RSsupplier.next())
+            RSsupplier = stm.executeQuery(sql);
+            while (RSsupplier.next()) {
                 tbl.addRow(new Object[]{
-                    (""+i++),
+                    ("" + i++),
                     RSsupplier.getString(1),
                     RSsupplier.getString(2),
                     RSsupplier.getString(3),
                     RSsupplier.getString(4),
                     RSsupplier.getString(5)
                 });
+            }
             jTable1.setModel(tbl);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error \n Gagal Memuat Ke Database \n Cek Kneksi dan Cek Database sudah di aktifkan atau belum");
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -373,15 +467,15 @@ public class Supplier extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ButtonAdd1;
-    private javax.swing.JButton ButtonAdd2;
-    private javax.swing.JButton ButtonAdd3;
+    private javax.swing.JButton ButtonClear;
+    private javax.swing.JButton ButtonDelete;
+    private javax.swing.JButton ButtonEdit;
     private javax.swing.JButton ButtonSave;
-    private javax.swing.JLabel LabelNoTrs;
-    private javax.swing.JLabel LabelNoTrs1;
-    private javax.swing.JLabel LabelNoTrs2;
-    private javax.swing.JLabel LabelNoTrs3;
-    private javax.swing.JLabel LabelNoTrs4;
+    private javax.swing.JLabel LabelAlamat;
+    private javax.swing.JLabel LabelKodeSup;
+    private javax.swing.JLabel LabelNamaBrg;
+    private javax.swing.JLabel LabelNamaPer;
+    private javax.swing.JLabel LabelNoTlp;
     private javax.swing.JTextField TxtAlamat;
     private javax.swing.JTextField TxtKodeSup;
     private javax.swing.JTextField TxtNamaBrg;
